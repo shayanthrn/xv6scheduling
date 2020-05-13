@@ -534,5 +534,26 @@ procdump(void)
 }
 
 int getChildren(void){
-  return 10;
+  struct proc *currproc = myproc();
+  struct proc *p;
+  int pidofchildren[NPROC];
+  int count=0;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    if(p->parent->pid == currproc->pid){
+      pidofchildren[count]=p->pid;
+      count++;
+    } 
+  release(&ptable.lock);
+  int i;
+  int res=0;
+  for(i=0;i<count;i++){
+    if(pidofchildren[i]>9&&i!=0){
+      res*=10;
+    }
+    res+=pidofchildren[i];
+    if(i!=count-1)
+      res*=100;
+  }
+  return res;
 }
