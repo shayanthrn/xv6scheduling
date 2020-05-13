@@ -28,7 +28,29 @@ main(void)
           }
           else{
             printf(1,"pid of n1 child is: %d n2 is : %d and n3 is: %d and the output of getchildren is : %d\n",pid1,pid2,pid3,getChildren());
-            
+            int res=0;
+            res+=pid1;
+            if(pid2>9){
+                res*=1000;
+            }
+            else{
+                res*=100;
+            }
+            res+=pid2;
+            if(pid3>9){
+                res*=1000;
+            }
+            else{
+                res*=100;
+            }
+            res+=pid3;
+            if(res==getChildren()){
+                printf(1,"test accepted!\n");
+            }
+            else{
+                printf(1,"test failed!\n");
+                printf(1,"%d",res);
+            }
           }
       }
   }
