@@ -532,3 +532,7 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int getChildren(void){
+  return 10;
+}
