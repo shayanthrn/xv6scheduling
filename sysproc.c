@@ -96,7 +96,7 @@ sys_getChildren(void)
   return getChildren();
 }
 
-void
+int
 sys_changePolicy(void)
 {
   return changePolicy();

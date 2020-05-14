@@ -558,6 +558,6 @@ int getChildren(void){
   return res;
 }
 
-void changePolicy(void){
-  
+int changePolicy(void){
+  return 0;
 }
