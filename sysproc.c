@@ -95,3 +95,9 @@ sys_getChildren(void)
 {
   return getChildren();
 }
+
+void
+sys_changePolicy(void)
+{
+  return changePolicy();
+}
