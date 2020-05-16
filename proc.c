@@ -116,7 +116,9 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
   // set time variables
+  acquire(&tickslock);
   p->creation_time = ticks;
+  release(&tickslock);
   p->running_time = 0;
   p->sleep_time = 0;
   p->waiting_time = 0;
@@ -272,7 +274,9 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
+  acquire(&tickslock);
   curproc->termination_time = ticks;
+  release(&tickslock);
   sched();
   panic("zombie exit");
 }
