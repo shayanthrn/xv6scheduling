@@ -272,6 +272,7 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
+  curproc->termination_time = ticks;
   sched();
   panic("zombie exit");
 }
