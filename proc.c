@@ -627,3 +627,21 @@ int changePolicy(void){
   }
   return 0;
 }
+
+
+void updateTimeproc(void){
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+   if(p->state == SLEEPING ){
+     p->sleep_time+=1;
+   }
+   if(p->state == RUNNABLE ){
+     p->waiting_time+=1;
+   }
+   if(p->state == RUNNING ){
+     p->running_time+=1;
+   }
+  }
+  release(&ptable.lock);
+}

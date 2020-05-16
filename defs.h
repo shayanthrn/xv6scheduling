@@ -121,7 +121,8 @@ int             wait(void);
 void            wakeup(void*);
 void            yield(void);
 int             getChildren(void);
-int            changePolicy(void);
+int             changePolicy(void);
+void            updateTimeproc(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

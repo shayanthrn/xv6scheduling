@@ -35,20 +35,7 @@ idtinit(void)
 
 void
 updateTime(void){
-  struct proc *p;
-  acquire(&ptable.lock);
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-   if(p->state == SLEEPING ){
-     p->sleep_time+=1;
-   }
-   if(p->state == RUNNABLE ){
-     p->waiting_time+=1;
-   }
-   if(p->state == RUNNING ){
-     p->running_time+=1;
-   }
-  }
-  release(&ptable.lock);
+  updateTimeproc();
 }
 
 //PAGEBREAK: 41
@@ -68,9 +55,9 @@ trap(struct trapframe *tf)
   switch(tf->trapno){
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){
-      updateTime();
       acquire(&tickslock);
       ticks++;
+      updateTime();
       wakeup(&ticks);
       release(&tickslock);
     }
