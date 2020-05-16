@@ -108,3 +108,8 @@ sys_waitChild(void){
   argptr (0 , (void*)&times ,sizeof(*times));
   return waitChild(times);
 }
+
+int
+sys_getRuntime(void){
+  return getRuntime();
+}

@@ -16,20 +16,32 @@ main(void)
   int pid1=0,pid2=0,pid3=0;
   struct timevars t1,t2,t3;
   pid1=fork();
+  changePolicy();
   if(pid1==0){
       //child
+      int i=0;
+      for(i=0;i<100000;i++){
+        i=i;
+      }
       exit();
   }
   else{
       pid2=fork();
       if(pid2==0){
           //child
+          int i=0;
+      for(i=0;i<100000;i++){
+        i=i;
+      }
           exit();
       }
       else{
           pid3=fork();
           if(pid3==0){
               //child
+              while(1){
+                printf(1,"%d",getRuntime());
+              }
               exit();
           }
           else{

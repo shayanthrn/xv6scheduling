@@ -370,6 +370,7 @@ scheduler(void)
   }
   else{
       // myscheduler
+      cprintf("in the custom");
     struct proc *p;
     struct cpu *c = mycpu();
     c->proc = 0;
@@ -690,4 +691,9 @@ for(;;){
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(curproc, &ptable.lock);  //DOC: wait-sleep
   }
+}
+
+
+int getRuntime(void){
+  return myproc()->running_time;
 }
