@@ -102,7 +102,9 @@ sys_changePolicy(void)
   return changePolicy();
 }
 
-struct timevars
+int
 sys_waitChild(void){
-  return waitChild();
+  struct timevars *times;
+  argptr (0 , (void*)&times ,sizeof(*times));
+  return waitChild(times);
 }

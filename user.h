@@ -1,5 +1,6 @@
 struct stat;
 struct rtcdate;
+struct timevars;
 
 // system calls
 int fork(void);
@@ -25,7 +26,7 @@ int sleep(int);
 int uptime(void);
 int getChildren(void);
 int changePolicy(void);
-struct timevars waitChild(void);
+int waitChild(struct timevars*);
 
 // ulib.c
 int stat(const char*, struct stat*);

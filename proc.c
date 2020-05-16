@@ -647,13 +647,12 @@ void updateTimeproc(void){
 }
 
 
-struct timevars
-waitChild(void){
-  struct timevars times;
-  times.creation_time=0;
-  times.running_time=0;
-  times.sleep_time=0;
-  times.termination_time=0;
-  times.waiting_time=0;
-  return times;
+int
+waitChild(struct timevars *times){
+  times->creation_time=0;
+  times->running_time=1;
+  times->sleep_time=2;
+  times->termination_time=3;
+  times->waiting_time=4;
+  return 0;
 }
