@@ -57,7 +57,7 @@ trap(struct trapframe *tf)
     if(cpuid() == 0){
       acquire(&tickslock);
       ticks++;
-      
+      updateTime();
       wakeup(&ticks);
       release(&tickslock);
     }
@@ -111,7 +111,6 @@ trap(struct trapframe *tf)
   if(myproc() && myproc()->state == RUNNING &&
      tf->trapno == T_IRQ0+IRQ_TIMER)
     if(ticks%QUANTUM==0){
-      updateTime();
       yield();
     }
 
