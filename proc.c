@@ -115,7 +115,12 @@ found:
   p->context = (struct context*)sp;
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
-
+  // set time variables
+  p->creation_time = ticks;
+  p->running_time = 0;
+  p->sleep_time = 0;
+  p->waiting_time = 0;
+  p->termination_time = 0;
   return p;
 }
 
