@@ -64,3 +64,11 @@ struct proc {
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
+
+struct timevars {
+  int creation_time;           //  {    
+  int running_time;            //
+  int sleep_time;              //       time variables!
+  int waiting_time;            //
+  int termination_time;        //  }
+};

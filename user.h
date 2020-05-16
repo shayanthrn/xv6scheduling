@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 int getChildren(void);
 int changePolicy(void);
+struct timevars waitChild(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

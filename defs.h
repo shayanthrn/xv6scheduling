@@ -123,6 +123,7 @@ void            yield(void);
 int             getChildren(void);
 int             changePolicy(void);
 void            updateTimeproc(void);
+struct timevars waitChild(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

@@ -645,3 +645,15 @@ void updateTimeproc(void){
   }
   release(&ptable.lock);
 }
+
+
+struct timevars
+waitChild(void){
+  struct timevars times;
+  times.creation_time=0;
+  times.running_time=0;
+  times.sleep_time=0;
+  times.termination_time=0;
+  times.waiting_time=0;
+  return times;
+}

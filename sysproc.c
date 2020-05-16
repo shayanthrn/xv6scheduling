@@ -101,3 +101,8 @@ sys_changePolicy(void)
 {
   return changePolicy();
 }
+
+struct timevars
+sys_waitChild(void){
+  return waitChild();
+}
