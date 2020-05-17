@@ -29,6 +29,7 @@ int changePolicy(void);
 int waitChild(struct timevars*);
 int getRuntime(void);
 int getRuntimeofchild(int *);
+int checkalive(int *);
 
 // ulib.c
 int stat(const char*, struct stat*);

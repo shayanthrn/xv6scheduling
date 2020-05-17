@@ -21,6 +21,7 @@ struct timevars {
 
 extern struct cpu cpus[NCPU];
 extern int ncpu;
+extern int scheduler_select;
 
 
 //PAGEBREAK: 17

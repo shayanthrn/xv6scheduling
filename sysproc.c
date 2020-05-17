@@ -120,3 +120,10 @@ sys_getRuntimeofchild(void){
     argptr (0 , (void*)&pid ,sizeof(int *));
     return getRuntimeofchild(pid);
 }
+
+int
+sys_checkalive(void){
+  int *pid;
+  argptr (0 , (void*)&pid ,sizeof(int *));
+  return checkalive(pid);
+}

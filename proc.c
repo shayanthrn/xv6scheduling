@@ -8,7 +8,6 @@
 #include "spinlock.h"
 
 
-
 int scheduler_select=0;
 
 struct {
@@ -348,7 +347,7 @@ scheduler(void)
     for(;;){
       // Enable interrupts on this processor.
       sti();
-      if(scheduler_select==0){
+      if(scheduler_select==0 || scheduler_select==1){
      // Loop over process table looking for process to run.
         acquire(&ptable.lock);
         for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -612,7 +611,12 @@ int changePolicy(void){
     scheduler_select=1;
   }
   else{
-    scheduler_select=0;
+    if(scheduler_select==1){
+      scheduler_select=2;
+    }
+    else{
+      scheduler_select=0;
+    }
   }
   return 0;
 }
@@ -694,6 +698,18 @@ int getRuntimeofchild(int *pid1){
       return p->running_time;
     } 
   }
-  release(&ptable.lock);
+  //release(&ptable.lock);
+  return 0;
+}
+
+int checkalive(int *pid1){
+  struct proc *p;
+  //acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == *pid1 && p->state != ZOMBIE ){
+      return 1;
+    } 
+  }
+  //release(&ptable.lock);
   return 0;
 }
