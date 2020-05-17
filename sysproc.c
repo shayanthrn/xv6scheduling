@@ -127,3 +127,10 @@ sys_checkalive(void){
   argptr (0 , (void*)&pid ,sizeof(int *));
   return checkalive(pid);
 }
+
+int
+sys_setpro(void){
+  int *pro;
+  argptr (0 , (void*)&pro ,sizeof(int *));
+  return setpro(pro);
+}

@@ -370,7 +370,7 @@ scheduler(void)
          }
          release(&ptable.lock);
       }
-      else{
+    //  else{
         acquire(&ptable.lock);
         for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
         if(p->state != RUNNABLE)
@@ -399,7 +399,7 @@ scheduler(void)
        // It should have changed its p->state before coming back.
        c->proc = 0;
        release(&ptable.lock);
-      }
+      //}
    }
 }
 
@@ -618,7 +618,7 @@ int changePolicy(void){
       scheduler_select=0;
     }
   }
-  return 0;
+  return scheduler_select;
 }
 
 
@@ -712,5 +712,12 @@ int checkalive(int *pid1){
     } 
   }
   //release(&ptable.lock);
+  return 0;
+}
+
+int setpro(int *pro){
+  struct proc *currpro=myproc();
+  currpro->priority=*pro;
+  currpro->changeable_priority=*pro;
   return 0;
 }

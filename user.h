@@ -30,6 +30,7 @@ int waitChild(struct timevars*);
 int getRuntime(void);
 int getRuntimeofchild(int *);
 int checkalive(int *);
+int setpro(int *);
 
 // ulib.c
 int stat(const char*, struct stat*);
