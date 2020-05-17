@@ -122,8 +122,8 @@ found:
   p->sleep_time = 0;
   p->waiting_time = 0;
   p->termination_time = 0;
-  p->priority =1;
-  p->changeable_priority = 1;
+  p->priority =0;
+  p->changeable_priority = 0;
   return p;
 }
 
@@ -340,11 +340,7 @@ scheduler(void)
     struct proc *p;
     struct cpu *c = mycpu();
     c->proc = 0;
-    struct proc *procs[NPROC];
-    int i=0;
-    int j=0;
-    int minpro=0;
-    int index=0;
+    struct proc *select;
     for(;;){
       // Enable interrupts on this processor.
       sti();
@@ -371,32 +367,29 @@ scheduler(void)
      }
     }
     else{
-      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-       if(p->state != RUNNABLE)
+      for(p = ptable.proc;p < &ptable.proc[NPROC];p++){
+        if(p->state != RUNNABLE)
           continue;
-        procs[i]=p;
-        i++;
-      }
-      minpro=procs[0]->priority + procs[0]->changeable_priority;
-      for(j=0;j<i;j++){
-          if(procs[j]->priority+ procs[j]->changeable_priority<minpro){
-            minpro=procs[j]->priority+ procs[j]->changeable_priority;
-            index=j;
+        select=p;
+        for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+         if(p->state != RUNNABLE)
+          continue;
+         if(p->changeable_priority<select->changeable_priority){
+          select=p;
           }
-      }
-      p = procs[index];
-       // Switch to chosen process.  It is the process's job
-       // to release ptable.lock and then reacquire it
-       // before jumping back to us.
-      c->proc = p;
+        }
+        p=select;
+        c->proc = p;
         switchuvm(p);
        p->state = RUNNING;
 
        swtch(&(c->scheduler), p->context);
        switchkvm();
+
        // Process is done running for now.
        // It should have changed its p->state before coming back.
        c->proc = 0;
+      }
     }
     release(&ptable.lock);
    }
@@ -726,6 +719,5 @@ int checkalive(int *pid1){
 int setpro(int *pro){
   struct proc *currpro=myproc();
   currpro->priority=*pro;
-  currpro->changeable_priority=*pro;
   return 0;
 }
