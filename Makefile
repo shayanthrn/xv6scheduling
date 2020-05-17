@@ -184,6 +184,7 @@ UPROGS=\
 	_getchildrenTest\
 	_waitChildtest\
 	_multilvl\
+	_test351\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -256,6 +257,7 @@ EXTRA=\
 	getchildrenTest.c\
 	waitChildtest.c\
 	multilvl.c\
+	test351.c\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
