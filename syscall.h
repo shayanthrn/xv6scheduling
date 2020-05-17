@@ -24,3 +24,4 @@
 #define SYS_changePolicy 23
 #define SYS_waitChild 24
 #define SYS_getRuntime 25
+#define SYS_getRuntimeofchild 26

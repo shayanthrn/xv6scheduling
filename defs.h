@@ -126,6 +126,7 @@ int             changePolicy(void);
 void            updateTimeproc(void);
 int             waitChild(struct timevars *);
 int             getRuntime(void);
+int             getRuntimeofchild(int *);
 
 
 

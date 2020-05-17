@@ -685,3 +685,15 @@ for(;;){
 int getRuntime(void){
   return myproc()->running_time;
 }
+
+int getRuntimeofchild(int *pid1){
+  struct proc *p;
+  //acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == *pid1){
+      return p->running_time;
+    } 
+  }
+  release(&ptable.lock);
+  return 0;
+}
