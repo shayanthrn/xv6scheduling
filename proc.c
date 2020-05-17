@@ -122,8 +122,8 @@ found:
   p->sleep_time = 0;
   p->waiting_time = 0;
   p->termination_time = 0;
-  p->priority =0;
-  p->changeable_priority =0;
+  p->priority =1;
+  p->changeable_priority = 1;
   return p;
 }
 
@@ -377,7 +377,7 @@ scheduler(void)
         procs[i]=p;
         i++;
       }
-      minpro=procs[0]->priority+ procs[0]->changeable_priority;
+      minpro=procs[0]->priority + procs[0]->changeable_priority;
       for(j=0;j<i;j++){
           if(procs[j]->priority+ procs[j]->changeable_priority<minpro){
             minpro=procs[j]->priority+ procs[j]->changeable_priority;
@@ -389,11 +389,11 @@ scheduler(void)
        // to release ptable.lock and then reacquire it
        // before jumping back to us.
       c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+        switchuvm(p);
+       p->state = RUNNING;
 
+       swtch(&(c->scheduler), p->context);
+       switchkvm();
        // Process is done running for now.
        // It should have changed its p->state before coming back.
        c->proc = 0;
@@ -634,6 +634,9 @@ void updateTimeproc(void){
    }
    if(p->state == RUNNING ){
      p->running_time+=1;
+   }
+   if(p->state == EMBRYO){
+     p->creation_time+=1;
    }
   }
   release(&ptable.lock);
