@@ -122,6 +122,8 @@ found:
   p->sleep_time = 0;
   p->waiting_time = 0;
   p->termination_time = 0;
+  p->priority =0;
+  p->changeable_priority =0;
   return p;
 }
 
@@ -335,21 +337,24 @@ wait(void)
 void
 scheduler(void)
 {
-   if(scheduler_select==0 || scheduler_select==1){
     struct proc *p;
     struct cpu *c = mycpu();
     c->proc = 0;
-  
+    struct proc *procs[NPROC];
+    int i=0;
+    int j=0;
+    int minpro=0;
+    int index=0;
     for(;;){
       // Enable interrupts on this processor.
       sti();
-
-     // Loop over process table looking for process to run.
       acquire(&ptable.lock);
+      if(scheduler_select==0 || scheduler_select==1){
+     // Loop over process table looking for process to run.
       for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
        if(p->state != RUNNABLE)
           continue;
-
+        
        // Switch to chosen process.  It is the process's job
        // to release ptable.lock and then reacquire it
        // before jumping back to us.
@@ -364,25 +369,8 @@ scheduler(void)
        // It should have changed its p->state before coming back.
        c->proc = 0;
      }
-    release(&ptable.lock);
-   }
-  }
-  else{
-      // myscheduler
-    struct proc *p;
-    struct cpu *c = mycpu();
-    c->proc = 0;
-    struct proc *procs[NPROC];
-    int i=0;
-    int j=0;
-    int minpro=0;
-    int index=0;
-    for(;;){
-      // Enable interrupts on this processor.
-      sti();
-
-     // Loop over process table looking for process to run.
-      acquire(&ptable.lock);
+    }
+    else{
       for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
        if(p->state != RUNNABLE)
           continue;
@@ -409,10 +397,11 @@ scheduler(void)
        // Process is done running for now.
        // It should have changed its p->state before coming back.
        c->proc = 0;
+    }
     release(&ptable.lock);
    }
-  }
 }
+
 
 // Enter scheduler.  Must hold only ptable.lock
 // and have changed proc->state. Saves and restores
