@@ -379,6 +379,7 @@ scheduler(void)
           }
         }
         p=select;
+        p->changeable_priority+=p->priority;
         c->proc = p;
         switchuvm(p);
        p->state = RUNNING;

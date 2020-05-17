@@ -27,10 +27,10 @@ main(void)
     pid1=fork();
     if(pid1==0){
         //child
-        int pro=1;
+        int pro=0;
         setpro(&pro);
         int i;
-        for(i=0;i<100;i++){
+        for(i=0;i<1000;i++){
             printf(1,"high\n");
         }
         exit();
@@ -42,7 +42,7 @@ main(void)
             int pro=10;
             setpro(&pro);
             int i;
-            for(i=0;i<100;i++){
+            for(i=0;i<1000;i++){
             printf(1,"medi\n");
             }
             exit();
@@ -51,10 +51,10 @@ main(void)
             pid3=fork();
             if(pid3==0){
                 //child
-                int pro=50;
+                int pro=500;
                 setpro(&pro);
                 int i;
-                for(i=0;i<100;i++){
+                for(i=0;i<1000;i++){
                 printf(1,"low\n");
                 }
                 exit();
