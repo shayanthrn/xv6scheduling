@@ -12,8 +12,8 @@ struct timevars {
 };
 
 
-void print(struct timevars t1){
-    printf(1,"%d %d %d %d %d\n\n\n",t1.creation_time,t1.running_time,t1.sleep_time,t1.termination_time,t1.waiting_time);
+void print(struct timevars t1,int pid){
+    printf(1," pid :%d  and %d %d %d %d %d\n\n\n",pid,t1.creation_time,t1.running_time,t1.sleep_time,t1.termination_time,t1.waiting_time);
 }
 
  
@@ -23,9 +23,7 @@ main(void)
     int pid1,pid2,pid3;
     struct timevars t1,t2,t3;
     changePolicy();            //changing algorithm to priority
-    int a=changePolicy(); 
-    printf(1,"%d",a);
-    exit();
+    changePolicy(); 
     pid1=fork();
     if(pid1==0){
         //child
@@ -62,12 +60,12 @@ main(void)
                 exit();
             }
             else{
-                waitChild(&t1);
-                waitChild(&t2);
-                waitChild(&t3);
-                print(t1);
-                print(t2);
-                print(t3);
+                int a=waitChild(&t1);
+                int b=waitChild(&t2);
+                int c=waitChild(&t3);
+                print(t1,a);
+                print(t2,b);
+                print(t3,c);
                 exit();
             }
         } 
