@@ -664,6 +664,11 @@ for(;;){
         times->termination_time=p->termination_time;
        // times->waiting_time=(p->termination_time)-(p->creation_time)-(p->running_time);
         times->waiting_time=p->waiting_time;
+        p->creation_time =0;
+        p->running_time = 0;
+        p-> sleep_time = 0;
+        p->termination_time = 0;
+        p->waiting_time = 0;
         pid = p->pid;
         kfree(p->kstack);
         p->kstack = 0;
